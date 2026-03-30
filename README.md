@@ -17,17 +17,17 @@ Para o cadastro de usuários foi utilizado o _JWT(JSON Web Token)_ para gerar um
 
 Depois de clonar o repositório instale as dependências do npm com o comando:
 ```
-npm install
+npm install --prefix backend
 ```
 Inicie o docker utilizando o comando:
 ```
-docker-compose up -d
+npm run docker:up
 ```
 Crie o banco de dados com o comando:
 ```
-docker exec -it trybesmith npm run restore
+npm run backend:restore --prefix backend
 ```
 E por fim, inicie o servidor back-end com o comando:
 ```
-docker exec -it trybesmith npm run dev
+npm run backend:dev
 ```
