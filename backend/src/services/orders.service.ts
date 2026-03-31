@@ -20,7 +20,7 @@ class OrderService {
     const ordersWithProducts = orders.map(({ id, userId }) => {
       const filteredProducts = products.filter(({ orderId }) => orderId === id);
 
-      const productsIds = filteredProducts.map((product: Product) => product.id);
+      const productsIds = filteredProducts.map((product: Product) => product.id as number);
 
       return {
         id,
@@ -28,7 +28,7 @@ class OrderService {
         productsIds,
       };
     });
-    return ordersWithProducts;
+    return ordersWithProducts as Order[];
   }
 
   public async create(userId: number, productsIds: number[]): Promise<Order> {
@@ -39,7 +39,7 @@ class OrderService {
     
     await Promise.all(updatePromises);
 
-    return { id: orderId, userId, productsIds };
+    return { id: orderId, userId, productsIds } as Order;
   }
 }
 
