@@ -77,7 +77,10 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.productService.getAll().subscribe({
-      next: (data) => this.products = data,
+      next: (data) => {
+        console.log('Products loaded:', data);
+        this.products = data;
+      },
       error: (err) => console.error('Failed to load products', err)
     });
   }
