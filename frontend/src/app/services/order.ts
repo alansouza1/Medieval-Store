@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../src/environments/environment';
 
 export interface Order {
   id: number;
@@ -13,21 +14,24 @@ export interface Order {
   providedIn: 'root'
 })
 export class OrderService {
-  private apiUrl = 'http://localhost:3000/orders';
+  private apiUrl = `${environment.apiUrl}/orders`;
 
   constructor(private http: HttpClient) { }
 
+  private getHeaders() {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders().set('Authorization', token || '');
+  }
+
   getAll(): Observable<Order[]> {
-    return this.http.get<Order[]>(this.apiUrl);
+    return this.http.get<Order[]>(this.apiUrl, { headers: this.getHeaders() });
   }
 
   create(productsIds: number[]): Observable<Order> {
-    const token = localStorage.getItem('token');
-    // For now the backend is hardcoded to userId 1, but we should send the token if it was validated
-    return this.http.post<Order>(this.apiUrl, { productsIds });
+    return this.http.post<Order>(this.apiUrl, { productsIds }, { headers: this.getHeaders() });
   }
 
   removeProduct(orderId: number, productId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${orderId}/items/${productId}`);
+    return this.http.delete<void>(`${this.apiUrl}/${orderId}/items/${productId}`, { headers: this.getHeaders() });
   }
 }
