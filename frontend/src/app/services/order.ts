@@ -26,4 +26,8 @@ export class OrderService {
     // For now the backend is hardcoded to userId 1, but we should send the token if it was validated
     return this.http.post<Order>(this.apiUrl, { productsIds });
   }
+
+  removeProduct(orderId: number, productId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${orderId}/items/${productId}`);
+  }
 }

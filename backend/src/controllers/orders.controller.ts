@@ -29,6 +29,12 @@ class OrdersController {
     const order = await this.orderService.create(userId, productsIds);
     res.status(201).json(order);
   };
+
+  public removeProduct = async (req: Request, res: Response) => {
+    const { orderId, productId } = req.params;
+    await this.orderService.removeProduct(Number(orderId), Number(productId));
+    res.status(204).end();
+  };
 }
 
 export default OrdersController;

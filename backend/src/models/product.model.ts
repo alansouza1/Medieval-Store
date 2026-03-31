@@ -32,4 +32,11 @@ export default class ProductModel {
       [orderId, productId],
     );
   }
+
+  public async removeFromOrder(productId: number): Promise<void> {
+    await this.connection.execute(
+      'UPDATE Trybesmith.Products SET orderId = NULL WHERE id = ?',
+      [productId],
+    );
+  }
 }

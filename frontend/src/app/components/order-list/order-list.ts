@@ -23,7 +23,14 @@ import { OrderService, Order } from '../../services/order';
           <div class="products-list">
             <h4>Items:</h4>
             <ul>
-              <li *ngFor="let name of order.productsNames">{{ name }}</li>
+              <li *ngFor="let name of order.productsNames; let i = index" class="product-item">
+                <span>⚔ {{ name }}</span>
+                <button (click)="removeItem(order.id!, order.productsIds![i])" 
+                        class="remove-button" 
+                        title="Remove from order">
+                  Release Item
+                </button>
+              </li>
             </ul>
           </div>
         </div>
@@ -52,7 +59,7 @@ import { OrderService, Order } from '../../services/order';
     }
     .orders-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
       gap: 2rem;
     }
     .parchment {
@@ -75,16 +82,30 @@ import { OrderService, Order } from '../../services/order';
       margin: 0;
       color: #8b4513;
     }
-    .user-id {
-      font-size: 0.9rem;
-      font-weight: bold;
-    }
     ul {
-      list-style-type: '⚔ ';
-      padding-left: 1.5rem;
+      list-style: none;
+      padding: 0;
     }
-    li {
-      margin-bottom: 0.3rem;
+    .product-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.6rem;
+      padding: 0.3rem;
+      border-bottom: 1px dashed rgba(139, 69, 19, 0.2);
+    }
+    .remove-button {
+      background: #8b4513;
+      color: #f4e4bc;
+      border: 1px solid #d4af37;
+      padding: 2px 8px;
+      font-size: 0.7rem;
+      cursor: pointer;
+      font-family: 'MedievalSharp', serif;
+    }
+    .remove-button:hover {
+      background: #d00;
+      color: #fff;
     }
   `]
 })
@@ -94,6 +115,10 @@ export class OrderListComponent implements OnInit {
   constructor(private orderService: OrderService) {}
 
   ngOnInit(): void {
+    this.loadOrders();
+  }
+
+  loadOrders() {
     this.orderService.getAll().subscribe({
       next: (data) => {
         console.log('Orders loaded:', data);
@@ -101,5 +126,16 @@ export class OrderListComponent implements OnInit {
       },
       error: (err) => console.error('Failed to load orders', err)
     });
+  }
+
+  removeItem(orderId: number, productId: number) {
+    if (confirm('Are you sure you want to release this item from the royal order?')) {
+      this.orderService.removeProduct(orderId, productId).subscribe({
+        next: () => {
+          this.loadOrders();
+        },
+        error: (err) => alert('Failed to release item: ' + err.message)
+      });
+    }
   }
 }
