@@ -10,8 +10,9 @@ import { CommonModule } from '@angular/common';
     <header class="medieval-header">
       <div class="header-content">
         <h1 (click)="goHome()" style="cursor: pointer;">Medieval Store</h1>
-        <nav *ngIf="isLoggedIn()">
-          <button (click)="logout()" class="nav-button">Leave Store (Logout)</button>
+        <nav *ngIf="isLoggedIn()" class="nav-links">
+          <button (click)="goToOrders()" class="nav-button">Royal Orders</button>
+          <button (click)="logout()" class="nav-button logout">Leave Store</button>
         </nav>
       </div>
     </header>
@@ -34,6 +35,10 @@ import { CommonModule } from '@angular/common';
       max-width: 1200px;
       margin: 0 auto;
     }
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+    }
     h1 {
       margin: 0;
       letter-spacing: 0.2rem;
@@ -46,9 +51,18 @@ import { CommonModule } from '@angular/common';
       padding: 0.5rem 1rem;
       cursor: pointer;
       font-family: 'MedievalSharp', serif;
+      transition: all 0.3s;
     }
     .nav-button:hover {
       background: #d4af37;
+      color: #3b2b1a;
+    }
+    .nav-button.logout {
+      border-color: #bc9a6c;
+      color: #bc9a6c;
+    }
+    .nav-button.logout:hover {
+      background: #bc9a6c;
       color: #3b2b1a;
     }
     main {
@@ -67,6 +81,10 @@ export class AppComponent {
   logout() {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
+  }
+
+  goToOrders() {
+    this.router.navigate(['/orders']);
   }
 
   goHome() {
