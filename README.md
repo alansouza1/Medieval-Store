@@ -26,7 +26,7 @@ The Medieval Store API allows for managing products, users, and orders. It featu
 
 ## 📁 Project Structure
 
-The project is divided into a root orchestration layer and a dedicated backend directory:
+The project is divided into a root orchestration layer, a dedicated backend, and an Angular frontend:
 
 ```text
 .
@@ -38,6 +38,10 @@ The project is divided into a root orchestration layer and a dedicated backend d
 │   │   ├── interfaces/     # TypeScript type definitions
 │   │   └── routes/         # API endpoint definitions
 │   └── utils/              # Helper scripts and database seeding
+├── frontend/               # Angular Frontend application
+│   └── src/app/
+│       ├── components/     # UI Components (ProductList, etc.)
+│       └── services/       # Service layer for API interaction
 ├── docker-compose.yml      # Docker services configuration
 └── package.json            # Root orchestration scripts
 ```
@@ -45,7 +49,7 @@ The project is divided into a root orchestration layer and a dedicated backend d
 ## 🚀 Getting Started
 
 ### Prerequisites
-- [Node.js](https://nodejs.org/) (v16 recommended)
+- [Node.js](https://nodejs.org/) (v16+ recommended)
 - [Docker](https://www.docker.com/get-started)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
@@ -60,10 +64,11 @@ The project is divided into a root orchestration layer and a dedicated backend d
 2. **Install dependencies:**
    ```bash
    npm install --prefix backend
+   npm install --prefix frontend
    ```
 
 3. **Start the environment:**
-   Launch the Node.js and MySQL containers:
+   Launch the Backend, Frontend, and MySQL containers:
    ```bash
    npm run docker:up
    ```
@@ -74,16 +79,13 @@ The project is divided into a root orchestration layer and a dedicated backend d
    npm run backend:restore
    ```
 
-5. **Run the Application:**
-   Start the development server with hot-reload:
-   ```bash
-   npm run backend:dev
-   ```
-   The API will be available at `http://localhost:3000`.
+5. **Access the Applications:**
+   - **Backend API:** `http://localhost:3000`
+   - **Frontend UI:** `http://localhost:4200`
 
 ## 🧪 Available Scripts
 
-These scripts are orchestration commands that run the corresponding `npm` scripts **inside the Docker container**. Make sure the containers are running with `npm run docker:up` first.
+These scripts are orchestration commands that run the corresponding `npm` scripts **inside the Docker containers**. Make sure the containers are running with `npm run docker:up` first.
 
 | Script | Description |
 | :--- | :--- |
@@ -91,6 +93,7 @@ These scripts are orchestration commands that run the corresponding `npm` script
 | `npm run backend:test` | Executes tests inside Docker. |
 | `npm run backend:lint` | Runs ESLint inside Docker. |
 | `npm run backend:restore` | Resets and re-seeds the MySQL database inside Docker. |
+| `npm run frontend:dev` | Starts the Angular frontend inside Docker. |
 | `npm run docker:up` | Spins up the Docker containers in the background (`-d`). |
 | `npm run docker:down` | Stops and removes the Docker containers. |
 
