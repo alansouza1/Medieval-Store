@@ -30,6 +30,17 @@ class OrderService {
     });
     return ordersWithProducts;
   }
+
+  public async create(userId: number, productsIds: number[]): Promise<Order> {
+    const orderId = await this.model.create(userId);
+    
+    const updatePromises = productsIds.map((productId) => 
+      this.productModel.updateOrder(productId, orderId));
+    
+    await Promise.all(updatePromises);
+
+    return { id: orderId, userId, productsIds };
+  }
 }
 
 export default OrderService;
