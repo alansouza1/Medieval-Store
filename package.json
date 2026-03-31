@@ -8,6 +8,8 @@
     "backend:test": "docker exec -it trybesmith npm run test",
     "backend:lint": "docker exec -it trybesmith npm run lint",
     "backend:restore": "docker exec -it trybesmith npm run restore",
+    "frontend:start": "docker exec -it trybesmith_frontend npm run start",
+    "frontend:dev": "docker exec -it trybesmith_frontend npm run start",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down"
   }

@@ -46,6 +46,22 @@ services:
       timeout: 5s
       retries: 5
 
+  # Frontend Service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: trybesmith_frontend
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - node
+    environment:
+      - NODE_ENV=development
+
 # Named volumes for data persistence
 volumes:
   mysql_data:
