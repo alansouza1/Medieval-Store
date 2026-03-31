@@ -19,11 +19,11 @@ export default class UserModel {
     return { id: insertId, ...user };
   }
 
-  public async login(user: Partial<User>): Promise<User | null> {
-    const { username, password } = user;
+  public async login(user: { username: string }): Promise<User | null> {
+    const { username } = user;
     const [rows] = await this.connection.execute(
-      'SELECT * FROM Trybesmith.Users WHERE username = ? AND password = ?',
-      [username, password],
+      'SELECT * FROM Trybesmith.Users WHERE username = ?',
+      [username],
     );
     const [userData] = rows as User[];
     return userData || null;

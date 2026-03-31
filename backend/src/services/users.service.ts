@@ -13,7 +13,7 @@ class UserService {
     return this.model.create(user);
   }
 
-  public login(user: Partial<User>): Promise<User | null> {
+  public login(user: { username: string }): Promise<User | null> {
     return this.model.login(user);
   }
 }

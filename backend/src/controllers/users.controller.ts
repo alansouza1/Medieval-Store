@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 import UserService from '../services/users.service';
 
 class UsersController {
@@ -7,13 +8,17 @@ class UsersController {
 
   public create = async (req: Request, res: Response) => {
     const { username, classe, level, password } = req.body;
-    const user = { username, classe, level, password };
+    
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    
+    const user = { username, classe, level, password: hashedPassword };
 
     await this.userService.create(user);
 
-    const secret = 'mysecret';
+    const secret = process.env.JWT_SECRET || 'mysecret';
 
-    const token = Jwt.sign({ data: user }, secret);
+    const token = Jwt.sign({ data: { username, classe, level } }, secret);
 
     res.status(201).json({ token });
   };
@@ -25,9 +30,9 @@ class UsersController {
       return res.status(400).json({ message: '"username" and "password" are required' });
     }
 
-    const user = await this.userService.login({ username, password });
+    const user = await this.userService.login({ username });
 
-    if (!user) {
+    if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(401).json({ message: 'Username or password invalid' });
     }
 
