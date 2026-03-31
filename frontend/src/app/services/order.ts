@@ -19,4 +19,10 @@ export class OrderService {
   getAll(): Observable<Order[]> {
     return this.http.get<Order[]>(this.apiUrl);
   }
+
+  create(productsIds: number[]): Observable<Order> {
+    const token = localStorage.getItem('token');
+    // For now the backend is hardcoded to userId 1, but we should send the token if it was validated
+    return this.http.post<Order>(this.apiUrl, { productsIds });
+  }
 }
