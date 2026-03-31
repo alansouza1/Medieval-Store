@@ -21,11 +21,13 @@ class OrderService {
       const filteredProducts = products.filter(({ orderId }) => orderId === id);
 
       const productsIds = filteredProducts.map((product: Product) => product.id as number);
+      const productsNames = filteredProducts.map((product: Product) => product.name);
 
       return {
         id,
         userId,
         productsIds,
+        productsNames,
       };
     });
     return ordersWithProducts as Order[];

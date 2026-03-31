@@ -21,9 +21,9 @@ import { OrderService, Order } from '../../services/order';
             <span class="user-id">Buyer ID: {{ order.userId }}</span>
           </div>
           <div class="products-list">
-            <h4>Items (IDs):</h4>
+            <h4>Items:</h4>
             <ul>
-              <li *ngFor="let pid of order.productsIds">Product #{{ pid }}</li>
+              <li *ngFor="let name of order.productNames">{{ name }}</li>
             </ul>
           </div>
         </div>
