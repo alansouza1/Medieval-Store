@@ -175,7 +175,11 @@ export class ProductListComponent implements OnInit {
         this.selectedIds.set([]);
         this.router.navigate(['/orders']);
       },
-      error: (err) => alert('Failed to forge the order: ' + err.error?.message)
+      error: (err) => {
+        console.error('Forge failed', err);
+        const msg = err.error?.message || err.message || 'The connection to the forge was lost.';
+        alert('Failed to forge the order: ' + msg);
+      }
     });
   }
 }

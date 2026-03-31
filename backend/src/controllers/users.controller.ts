@@ -14,11 +14,11 @@ class UsersController {
     
     const user = { username, classe, level, password: hashedPassword };
 
-    await this.userService.create(user);
+    const result = await this.userService.create(user);
 
     const secret = process.env.JWT_SECRET || 'mysecret';
 
-    const token = Jwt.sign({ data: { username, classe, level } }, secret);
+    const token = Jwt.sign({ data: { id: result.id, username, classe, level } }, secret);
 
     res.status(201).json({ token });
   };
