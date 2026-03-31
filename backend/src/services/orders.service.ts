@@ -43,6 +43,11 @@ class OrderService {
 
     return { id: orderId, userId, productsIds } as Order;
   }
+
+  public async removeProduct(orderId: number, productId: number): Promise<void> {
+    await this.productModel.removeFromOrder(productId);
+    await this.model.deleteIfEmpty(orderId);
+  }
 }
 
 export default OrderService;
