@@ -39,45 +39,26 @@ VALUES
   ("yraa", "Ladina", 5, "valarmorg");
 
 INSERT INTO
-  Trybesmith.Orders (userId)
-VALUES
-  (1);
-
-INSERT INTO
-  Trybesmith.Orders (userId)
-VALUES
-  (3);
-
-INSERT INTO
-  Trybesmith.Orders (userId)
-VALUES
-  (2);
-
-INSERT INTO
   Trybesmith.Products (name, amount)
 VALUES
   ("Espada curta", "10 peças de ouro");
 
 INSERT INTO
-  Trybesmith.Products (name, amount, orderId)
+  Trybesmith.Products (name, amount)
 VALUES
-  (
-    "Escudo desnecessariamente grande",
-    "20 peças de ouro",
-    1
-  );
+  ("Escudo desnecessariamente grande", "20 peças de ouro");
 
 INSERT INTO
-  Trybesmith.Products (name, amount, orderId)
+  Trybesmith.Products (name, amount)
 VALUES
-  ("Adaga de Aço Valírico", "1 peça de ouro", 2);
+  ("Adaga de Aço Valírico", "1 peça de ouro");
 
 INSERT INTO
-  Trybesmith.Products (name, amount, orderId)
+  Trybesmith.Products (name, amount)
 VALUES
-  ("Colar de fogo", "1 peça de ouro", 2);
+  ("Colar de fogo", "1 peça de ouro");
 
 INSERT INTO
-  Trybesmith.Products (name, amount, orderId)
+  Trybesmith.Products (name, amount)
 VALUES
-  ("Engenhoca aleatória", "15 peças de ouro", 3);
+  ("Engenhoca aleatória", "15 peças de ouro");
