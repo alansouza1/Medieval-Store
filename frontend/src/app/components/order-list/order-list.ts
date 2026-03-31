@@ -23,7 +23,7 @@ import { OrderService, Order } from '../../services/order';
           <div class="products-list">
             <h4>Items:</h4>
             <ul>
-              <li *ngFor="let name of order.productNames">{{ name }}</li>
+              <li *ngFor="let name of order.productsNames">{{ name }}</li>
             </ul>
           </div>
         </div>
