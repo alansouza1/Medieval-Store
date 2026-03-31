@@ -18,4 +18,14 @@ export default class UserModel {
     const { insertId } = dataInserted;
     return { id: insertId, ...user };
   }
+
+  public async login(user: Partial<User>): Promise<User | null> {
+    const { username, password } = user;
+    const [rows] = await this.connection.execute(
+      'SELECT * FROM Trybesmith.Users WHERE username = ? AND password = ?',
+      [username, password],
+    );
+    const [userData] = rows as User[];
+    return userData || null;
+  }
 }

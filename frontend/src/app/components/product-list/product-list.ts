@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService, Product } from '../../services/product';
 
@@ -9,8 +9,17 @@ import { ProductService, Product } from '../../services/product';
   template: `
     <div class="medieval-container">
       <h2 class="medieval-title">Available Armory</h2>
-      <div class="product-grid">
-        <div *ngFor="let product of products" class="product-card">
+      
+      <!-- Show this if the signal is empty -->
+      <div *ngIf="products().length === 0" class="no-products">
+        <h1>THE ARMORY IS EMPTY!</h1>
+        <p>Our blacksmiths are still working on the weapons...</p>
+        <p>Wait... check the console! If items are there, we have a rendering ghost!</p>
+      </div>
+
+      <!-- Show the grid if the signal has data -->
+      <div class="product-grid" *ngIf="products().length > 0">
+        <div *ngFor="let product of products()" class="product-card">
           <div class="parchment">
             <h3>{{ product.name }}</h3>
             <p class="amount">Price: {{ product.amount }}</p>
@@ -24,15 +33,19 @@ import { ProductService, Product } from '../../services/product';
     .medieval-container {
       padding: 2rem;
       background-color: #2c1e14;
-      min-height: 80vh;
+      min-height: 100vh;
       color: #f4e4bc;
+    }
+    .no-products {
+      text-align: center;
+      padding: 3rem;
+      color: #bc9a6c;
     }
     .medieval-title {
       font-family: 'MedievalSharp', serif;
       text-align: center;
       font-size: 3rem;
       color: #d4af37;
-      text-shadow: 2px 2px #000;
       margin-bottom: 2rem;
     }
     .product-grid {
@@ -45,39 +58,27 @@ import { ProductService, Product } from '../../services/product';
       padding: 10px;
       border: 3px solid #d4af37;
       border-radius: 8px;
-      box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
-      transition: transform 0.3s;
-    }
-    .product-card:hover {
-      transform: scale(1.05);
     }
     .parchment {
       background-color: #f4e4bc;
       color: #2c1e14;
       padding: 1.5rem;
       border-radius: 4px;
-      min-height: 150px;
-      border: 1px solid #bc9a6c;
-    }
-    h3 {
-      margin-top: 0;
-      border-bottom: 2px solid #8b4513;
-      padding-bottom: 0.5rem;
-    }
-    .amount {
-      font-weight: bold;
-      color: #4a3728;
     }
   `]
 })
 export class ProductListComponent implements OnInit {
-  products: Product[] = [];
+  // Using a Signal for reactive data binding
+  products = signal<Product[]>([]);
 
   constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
     this.productService.getAll().subscribe({
-      next: (data) => this.products = data,
+      next: (data) => {
+        console.log('Products received in component:', data);
+        this.products.set(data); // Updating the Signal
+      },
       error: (err) => console.error('Failed to load products', err)
     });
   }

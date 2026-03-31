@@ -12,6 +12,10 @@ class UserService {
   public create(user: User): Promise<User> {
     return this.model.create(user);
   }
+
+  public login(user: Partial<User>): Promise<User | null> {
+    return this.model.login(user);
+  }
 }
 
 export default UserService;
