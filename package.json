@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "Root orchestration for Medieval Store project",
   "scripts": {
-    "backend:start": "npm run start --prefix backend",
-    "backend:dev": "npm run dev --prefix backend",
-    "backend:test": "npm run test --prefix backend",
-    "backend:lint": "npm run lint --prefix backend",
-    "backend:restore": "npm run restore --prefix backend",
-    "docker:up": "docker-compose up",
+    "backend:start": "docker exec -it trybesmith npm run start",
+    "backend:dev": "docker exec -it trybesmith npm run dev",
+    "backend:test": "docker exec -it trybesmith npm run test",
+    "backend:lint": "docker exec -it trybesmith npm run lint",
+    "backend:restore": "docker exec -it trybesmith npm run restore",
+    "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down"
   }
 }

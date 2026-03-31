@@ -83,13 +83,15 @@ The project is divided into a root orchestration layer and a dedicated backend d
 
 ## 🧪 Available Scripts
 
+These scripts are orchestration commands that run the corresponding `npm` scripts **inside the Docker container**. Make sure the containers are running with `npm run docker:up` first.
+
 | Script | Description |
 | :--- | :--- |
-| `npm run backend:dev` | Starts the backend in development mode with `nodemon`. |
-| `npm run backend:test` | Executes the test suite using `jest`. |
-| `npm run backend:lint` | Runs ESLint to ensure code quality. |
-| `npm run backend:restore` | Resets and re-seeds the MySQL database. |
-| `npm run docker:up` | Spins up the Docker containers in the background. |
+| `npm run backend:dev` | Starts the backend in development mode inside Docker. |
+| `npm run backend:test` | Executes tests inside Docker. |
+| `npm run backend:lint` | Runs ESLint inside Docker. |
+| `npm run backend:restore` | Resets and re-seeds the MySQL database inside Docker. |
+| `npm run docker:up` | Spins up the Docker containers in the background (`-d`). |
 | `npm run docker:down` | Stops and removes the Docker containers. |
 
 ## 🔐 Authentication
