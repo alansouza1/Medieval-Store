@@ -48,6 +48,11 @@ class OrderService {
     await this.productModel.removeFromOrder(productId);
     await this.model.deleteIfEmpty(orderId);
   }
+
+  public async complete(orderId: number): Promise<void> {
+    await this.productModel.deleteByOrder(orderId);
+    await this.model.delete(orderId);
+  }
 }
 
 export default OrderService;

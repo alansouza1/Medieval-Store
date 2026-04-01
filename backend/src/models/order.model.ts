@@ -37,4 +37,11 @@ export default class OrderModel {
       );
     }
   }
+
+  public async delete(orderId: number): Promise<void> {
+    await this.connection.execute(
+      'DELETE FROM Trybesmith.Orders WHERE id = ?',
+      [orderId],
+    );
+  }
 }
