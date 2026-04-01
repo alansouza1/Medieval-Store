@@ -37,7 +37,10 @@ The Medieval Store is a complete marketplace where heroes can register, authenti
 ![Armory Screen](docs/images/Screenshot%202026-03-31%20152317.png)
 
 ### Royal Orders Ledger
-![Orders Screen](docs/images/Screenshot%202026-03-31%20152325.png)
+![Orders Screen](docs/images/Screenshot%202026-04-01%20014535.png)
+
+### Quest Complete!
+![Quest Complete Screen](docs/images/Screenshot%202026-04-01%20014550.png)
 
 ## 🛠️ Tech Stack
 
