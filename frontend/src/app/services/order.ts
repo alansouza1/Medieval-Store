@@ -34,4 +34,8 @@ export class OrderService {
   removeProduct(orderId: number, productId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${orderId}/items/${productId}`, { headers: this.getHeaders() });
   }
+
+  completeOrder(orderId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${orderId}`, { headers: this.getHeaders() });
+  }
 }
