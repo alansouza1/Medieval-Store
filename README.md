@@ -1,18 +1,29 @@
-# Medieval Store - Full Stack TypeScript Application
+# ⚔️ Medieval Store - Full Stack Ecosystem
 
-A comprehensive full-stack application for a medieval-themed store. This project features a robust **Node.js** API using the **MSC (Model-Service-Controller)** architecture and a modern **Angular 18+** frontend with **Signals** for reactive state management. The entire ecosystem is containerized with **Docker** for seamless development and deployment.
+Welcome to the **Medieval Store**, a robust full-stack application designed for managing legendary armory and royal orders. This project demonstrates high-level software engineering principles including **MSC (Model-Service-Controller) Architecture**, **Reactive State Management**, and **Production-Grade Security**.
 
 ## 🏰 Project Overview
 
-The Medieval Store allows heroes to register, browse a curated armory of legendary items, and forge royal orders. 
+The Medieval Store is a complete marketplace where heroes can register, authenticate, and acquire gear for their quests. The system manages the entire lifecycle of a purchase—from browsing the armory to "Forging" a Royal Order and finally "Completing the Quest" through a secure checkout process.
 
-### Key Features
-- **Authentication:** Secure registration and login flow using **JWT (JSON Web Tokens)**.
-- **Armory Management:** Dynamic product listing with item selection logic.
-- **Royal Orders:** Multi-item order creation with automatic database cleanup for empty orders.
-- **Reactive UI:** Frontend built with **Angular Signals** for high-performance UI updates.
-- **Robust Backend:** TypeScript-based API with strict typing and MySQL integration.
-- **Developer Experience:** Fully containerized with healthchecks and root-level orchestration scripts.
+### ✨ Key Features
+
+#### 🛡️ Security & Authentication
+- **Hashed Secrets:** No plain-text passwords! We use **Bcrypt.js** with high salt rounds to ensure hero credentials are unbreakable.
+- **JWT Protection:** Secure **JSON Web Tokens** act as the "Seal of the Kingdom," protecting all sensitive routes.
+- **Middleware Guarding:** A robust backend middleware validates every request to protected endpoints.
+- **Route Guards:** Angular **CanActivate** guards prevent unauthorized visitors from entering the armory or the ledger.
+
+#### ⚒️ The Royal Armory (Frontend)
+- **Signal-Based Reactivity:** Built with **Angular 18+**, using **Signals** for instantaneous, high-performance UI updates without the overhead of traditional change detection.
+- **Medieval Aesthetic:** A fully themed UI featuring parchment backgrounds, golden borders, and the `MedievalSharp` Google Font.
+- **Interactive Checkout:** Multi-select items to "Forge" orders, with a dynamic "CLAIMED" status for sold gear.
+
+#### 📜 Kingdom Ledger (Backend)
+- **Clean MSC Architecture:** Strict separation of concerns ensuring the codebase remains maintainable and scalable.
+- **Swagger Documentation:** Full interactive API documentation available at `/api-docs`.
+- **Dynamic User Mapping:** Orders are automatically linked to the authenticated user's ID via token extraction.
+- **Database Integrity:** Foreign key constraints and automatic cleanup logic for empty orders.
 
 ## 📸 Visual Journey
 
@@ -30,41 +41,37 @@ The Medieval Store allows heroes to register, browse a curated armory of legenda
 
 ## 🛠️ Tech Stack
 
-### Backend
-- **TypeScript** & **Node.js**
-- **Express.js** (Web Framework)
-- **MySQL 8.0** (Database)
-- **JWT** (Authentication)
-- **Joi** (Schema Validation)
-- **CORS** (Cross-Origin Resource Sharing)
-
-### Frontend
-- **Angular 18+** (Standalone Components)
-- **Angular Signals** (Reactive State)
-- **RxJS** (Asynchronous Operations)
-- **Google Fonts** (MedievalSharp)
-- **Vanilla CSS** (Themed styling)
+| Layer | Technologies |
+| :--- | :--- |
+| **Frontend** | Angular 18+, Signals, RxJS, TypeScript, Vanilla CSS |
+| **Backend** | Node.js, Express, TypeScript, Bcrypt.js, JsonWebToken |
+| **Database** | MySQL 8.0 (Relational Storage) |
+| **Docs** | Swagger UI (OpenAPI 3.0) |
+| **DevOps** | Docker, Docker Compose, ESLint (Airbnb) |
 
 ## 📁 Project Structure
 
 ```text
 .
-├── backend/                # API Source code and configuration
+├── backend/                # API Ecosystem
 │   ├── src/
-│   │   ├── controllers/    # Request handling & Response parsing
-│   │   ├── services/       # Business logic & Database orchestration
-│   │   ├── models/         # Raw SQL queries & Data access
-│   │   ├── interfaces/     # Strict TypeScript type definitions
-│   │   └── routes/         # Express endpoint definitions
-│   └── utils/              # Database restoration & Seeding tools
-├── frontend/               # Angular Frontend application
+│   │   ├── controllers/    # Request/Response orchestration
+│   │   ├── services/       # Core business logic (MSC)
+│   │   ├── models/         # Database access layer (SQL)
+│   │   ├── middlewares/    # JWT & Security logic
+│   │   ├── interfaces/     # Strict Type definitions
+│   │   └── routes/         # Endpoint definitions
+│   ├── swagger.json        # OpenAPI specification
+│   └── utils/              # Seeding & Restoration tools
+├── frontend/               # User Interface
 │   └── src/app/
-│       ├── components/     # UI Components (Login, Register, Armory, Orders)
-│       └── services/       # Frontend service layer for API calls
-├── docs/                   # Documentation and screenshots
-├── docker-compose.yml      # Multi-container orchestration
-├── .env                    # Centralized environment variables
-└── package.json            # Root-level developer scripts
+│       ├── components/     # Signal-based standalone components
+│       ├── services/       # API abstraction layer
+│       ├── guards/         # Navigation security
+│       └── environments/   # Dynamic configuration
+├── docs/                   # Visual documentation
+├── docker-compose.yml      # Service orchestration
+└── package.json            # Global developer scripts
 ```
 
 ## 🚀 Getting Started
@@ -83,7 +90,7 @@ The Medieval Store allows heroes to register, browse a curated armory of legenda
    ```
 
 2. **Initialize Environment:**
-   Ensure the `.env` file exists in the root with correct credentials.
+   Create a `.env` file in the root directory (refer to `.env.example` if available).
 
 3. **Install dependencies:**
    ```bash
@@ -91,7 +98,7 @@ The Medieval Store allows heroes to register, browse a curated armory of legenda
    npm install --prefix frontend
    ```
 
-4. **Start the Kingdom (Docker):**
+4. **Start the Kingdom:**
    ```bash
    npm run docker:up
    ```
@@ -101,23 +108,22 @@ The Medieval Store allows heroes to register, browse a curated armory of legenda
    npm run backend:restore
    ```
 
-6. **Access the Gateways:**
-   - **Frontend UI:** `http://localhost:4200`
-   - **Backend API:** `http://localhost:3000`
+### 🔗 Useful Endpoints
+- **Frontend UI:** `http://localhost:4200`
+- **Backend API:** `http://localhost:3000`
+- **Swagger Docs:** `http://localhost:3000/api-docs`
 
-## 🧪 Orchestration Scripts
+## 🧪 Available Scripts
 
-Run these from the root directory:
+Run these from the root directory for full orchestration:
 
 | Script | Description |
 | :--- | :--- |
-| `npm run backend:dev` | Hot-reloading API inside Docker. |
-| `npm run backend:test` | Run backend test suites. |
-| `npm run backend:restore` | Reset database to initial armory state. |
-| `npm run frontend:dev` | Start Angular development server. |
-| `npm run docker:up` | Build and start all services. |
-| `npm run docker:down` | Stop all services and clean up networks. |
+| `npm run backend:dev` | Start API with hot-reloading. |
+| `npm run backend:restore` | Wipe database and reset to initial armory. |
+| `npm run frontend:dev` | Launch Angular development server. |
+| `npm run docker:up` | Build and lift all containers. |
+| `npm run docker:down` | Gracefully shut down the kingdom. |
 
-## 🔐 Security & Architecture
-
-The project implements a strict **MSC Architecture** on the backend to separate concerns. Authentication is handled via a JWT middleware flow (planned), and the database uses foreign key constraints to maintain integrity between Users, Orders, and Products.
+---
+*Forged with ❤️ by the Medieval Store Architects.*
