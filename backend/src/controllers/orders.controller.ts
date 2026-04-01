@@ -32,6 +32,12 @@ class OrdersController {
     await this.orderService.removeProduct(Number(orderId), Number(productId));
     res.status(204).end();
   };
+
+  public complete = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    await this.orderService.complete(Number(id));
+    res.status(204).end();
+  };
 }
 
 export default OrdersController;

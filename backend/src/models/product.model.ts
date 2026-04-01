@@ -39,4 +39,11 @@ export default class ProductModel {
       [productId],
     );
   }
+
+  public async deleteByOrder(orderId: number): Promise<void> {
+    await this.connection.execute(
+      'DELETE FROM Trybesmith.Products WHERE orderId = ?',
+      [orderId],
+    );
+  }
 }
